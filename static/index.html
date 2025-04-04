@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess the Bolts!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #F5F6F5;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #005BAC; /* Bufab blue */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input {
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #005BAC;
+            border-radius: 5px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #003087; /* Darker blue on focus */
+        }
+        button {
+            padding: 12px;
+            font-size: 1.1em;
+            background-color: #005BAC;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #003087;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #E6F0FA; /* Light blue background */
+            border: 1px solid #005BAC;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+        }
+        .logo {
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/images/logo.png" alt="Logo" class="logo">
+        <h1>Guess the Number of Bolts!</h1>
+        <form id="guessForm" method="post" onsubmit="submitGuess(event)">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="number" name="guess" placeholder="Your Guess" min="1" required>
+            <input type="hidden" name="id" id="participantId">
+            <button type="submit">Submit Guess</button>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+    <script>
+        // Generar o recuperar un ID único para el participante
+        let participantId = localStorage.getItem('participantId');
+        if (!participantId) {
+            participantId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+            localStorage.setItem('participantId', participantId);
+        }
+        document.getElementById('participantId').value = participantId;
+
+        async function submitGuess(event) {
+            event.preventDefault();
+            const form = document.getElementById('guessForm');
+            const messageDiv = document.getElementById('message');
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageDiv.textContent = result.message;
+                    messageDiv.style.display = 'block';
+                    form.reset();
+                    form.querySelector('button').disabled = true; // Deshabilitar botón tras éxito
+                } else {
+                    messageDiv.textContent = result.detail || 'Something went wrong!';
+                    messageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                messageDiv.textContent = 'Error submitting guess!';
+                messageDiv.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
