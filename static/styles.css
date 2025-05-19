@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F6F5;
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #005BAC; /* Bufab blue */
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid #005BAC;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #003087; /* Darker blue on focus */
+}
+
+button {
+    padding: 12px;
+    font-size: 1.1em;
+    background-color: #005BAC;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #003087;
+}
+
+.message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #E6F0FA; /* Light blue background */
+    border: 1px solid #005BAC;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+}
+
+.logo {
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+/* Full-screen overlay for the warning image */
+#warningImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* Ensures the image covers the whole screen */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+    display: none; /* Hidden by default */
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Smooth fade-in effect */
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Bolts!</title>
+    <link rel="icon" type="image/x-icon" href="https://www.bufab.com/hubfs/Favicon.svg">
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <img src="/images/logo.png" alt="Logo" class="logo">
+        <h1>Guess the Number of Bolts!</h1>
+        <form id="guessForm" method="post" onsubmit="submitGuess(event)">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="number" name="guess" placeholder="Your Guess" min="1" required>
+            <input type="email" name="email" placeholder="Only Your School Email is valid" required> <!-- Email input added here -->
+            <input type="hidden" name="id" id="participantId">
+            <button type="submit">Submit Guess</button>
+        </form>
+        <div id="message" class="message"></div>
+        <!-- Full-screen warning image -->
+        <img id="warningImage" src="" alt="Warning" />
+    </div>
+    <script>
+        // Generate or retrieve a unique ID for the participant
+        let participantId = localStorage.getItem('participantId');
+        if (!participantId) {
+            participantId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+            localStorage.setItem('participantId', participantId);
+        }
+        document.getElementById('participantId').value = participantId;
+
+        async function submitGuess(event) {
+            event.preventDefault();
+            const form = document.getElementById('guessForm');
+            const messageDiv = document.getElementById('message');
+            const warningImage = document.getElementById('warningImage'); // Reference to the warning image
+            const formData = new FormData(form);
+
+            // Hide the warning image initially
+            warningImage.style.display = 'none';
+
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageDiv.textContent = result.message;
+                    messageDiv.style.display = 'block';
+                    form.reset();
+                    form.querySelector('button').disabled = true; // Disable button after success
+                } else {
+                    messageDiv.textContent = result.detail || 'Something went wrong!';
+                    messageDiv.style.display = 'block';
+
+                    // Check if the response contains an image URL and show the warning image
+                    if (result.image_url) {
+                        warningImage.src = result.image_url;
+                        warningImage.style.display = 'block'; // Show the warning image
+
+                        // Add the fade-in effect
+                        setTimeout(() => {
+                            warningImage.style.opacity = 1; // Make the image fully visible
+                        }, 100); // Delay to ensure the display is applied before the opacity change
+                    }
+                }
+            } catch (error) {
+                messageDiv.textContent = 'Error submitting guess!';
+                messageDiv.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
