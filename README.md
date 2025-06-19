@@ -1,5 +1,5 @@
 # 🔩 Bufab Game
-![Bufab Logo](images/logo.png)
+![Bufab Logo](https://www.bufabflos.com/wp-content/themes/renewmyid/img/logo-bufab-flos.svg)
 
 A simple guessing game built with **FastAPI** where users can guess how many bolts are in the jar. One submission per device is allowed — no cheating! 😏
 
