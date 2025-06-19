@@ -1,9 +1,7 @@
-# 🔩 Bufab Game
+# 🔩 Bufab Game Activity for Fontys Students.
 ![Bufab Logo](https://www.bufabflos.com/wp-content/themes/renewmyid/img/logo-bufab-flos.svg)
 
-A simple guessing game built with **FastAPI** where users can guess how many bolts are in the jar. One submission per device is allowed — no cheating! 😏
-
-Based on the Flipper Zero Evil Portals
+A simple guessing game built with **FastAPI** where students visiting the company can guess how many bolts are in the jar. One submission per device is allowed — no cheating! 😏
 
 ---
 
