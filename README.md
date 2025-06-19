@@ -114,5 +114,3 @@ Submissions are stored in guesses.csv in the project root.
 All form validation is handled server-side.
 
 Make sure to update the $githubBaseUrl in setup.ps1 if your repo URL changes.
-
-Made with by @Deuthe
