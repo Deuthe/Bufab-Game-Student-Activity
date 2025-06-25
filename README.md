@@ -46,10 +46,15 @@ Just open PowerShell and run:
 .\setup.ps1
 ```
 This will:
+
   -Check your Python version (3.7+ required)
+
   -Download necessary files from GitHub
+  
   -Set up a virtual environment
+  
   -Install all dependencies
+  
   -Prompt how to run the server
 
 
