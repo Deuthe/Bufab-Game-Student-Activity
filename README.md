@@ -47,15 +47,15 @@ Just open PowerShell and run:
 ```
 This will:
 
-  -Check your Python version (3.7+ required)
+   -Check your Python version (3.7+ required)
 
-  -Download necessary files from GitHub
+   -Download necessary files from GitHub
   
-  -Set up a virtual environment
+   -Set up a virtual environment
   
-  -Install all dependencies
+   -Install all dependencies
   
-  -Prompt how to run the server
+   -Prompt how to run the server
 
 
 To host the app after setup:
